@@ -44,22 +44,23 @@ async function downloadCourse(course) {
   createFolder(`./courses/${course.name}/Home`);
   await getTextBySection(homeCat, course, "Home");
   await getFilesBySection(homeCat, course, "Home");
-  let categories = root
-    .querySelector(".nav.nav-tabs")
-    .querySelectorAll(".nav-item");
-  for (let i = 0; i < categories.length; i++) {
-    let category = categories[i];
-    let catName = category.querySelector("a").text.replace(/\//g, "-");
-    let sectionNumber = category
-      .querySelector("a")
-      .getAttribute("href")
-      .split("=")
-      .pop()
-      .substring(1);
-    createFolder(`./courses/${course.name}/${catName}`);
-    let resources = root.getElementById(sectionNumber);
-    await getTextBySection(resources, course, catName);
-    await getFilesBySection(resources, course, catName);
+  let precategories = root.querySelector(".nav.nav-tabs");
+  if (precategories == undefined) {
+    let categories = precategories.querySelectorAll(".nav-item");
+    for (let i = 0; i < categories.length; i++) {
+      let category = categories[i];
+      let catName = category.querySelector("a").text.replace(/\//g, "-");
+      let sectionNumber = category
+        .querySelector("a")
+        .getAttribute("href")
+        .split("=")
+        .pop()
+        .substring(1);
+      createFolder(`./courses/${course.name}/${catName}`);
+      let resources = root.getElementById(sectionNumber);
+      await getTextBySection(resources, course, catName);
+      await getFilesBySection(resources, course, catName);
+    }
   }
 }
 
