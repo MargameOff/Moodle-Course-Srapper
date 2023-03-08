@@ -45,7 +45,7 @@ async function downloadCourse(course) {
   await getTextBySection(homeCat, course, "Home");
   await getFilesBySection(homeCat, course, "Home");
   let precategories = root.querySelector(".nav.nav-tabs");
-  if (precategories == undefined) {
+  if (precategories != undefined) {
     let categories = precategories.querySelectorAll(".nav-item");
     for (let i = 0; i < categories.length; i++) {
       let category = categories[i];
