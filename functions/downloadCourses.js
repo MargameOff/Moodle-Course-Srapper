@@ -49,7 +49,7 @@ async function downloadCourse(course) {
     let categories = precategories.querySelectorAll(".nav-item");
     for (let i = 0; i < categories.length; i++) {
       let category = categories[i];
-      let catName = category.querySelector("a").text.replace(/\//g, "-");
+      let catName = category.querySelector("a").text.replace(/\//g, "-").replace(/:/g, "-").replace(/ /g, "_");
       let sectionNumber = category
         .querySelector("a")
         .getAttribute("href")
